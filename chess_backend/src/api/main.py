@@ -30,9 +30,15 @@ app = FastAPI(
 # In-memory singleton (single active game as requested)
 _GAME = ChessGame()
 
+# Note: In production you should restrict allow_origins to your deployed frontend URL(s).
+# We include common local/dev origins plus "*" fallback to keep Kavia preview/simple dev working.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "*",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
